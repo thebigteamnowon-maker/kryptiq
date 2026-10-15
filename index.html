@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080a12">
+<title>KRYPTIQ — Digital Universe</title>
+
+<style>
+:root {
+  --bg: #080a12;
+  --panel: #14182a;
+  --accent: #8b7cff;
+  --cyan: #53e5ff;
+  --text: #f4f5ff;
+  --muted: #969fbb;
+  --border: #ffffff20;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, Arial, sans-serif;
+}
+
+button, input, textarea, select {
+  font: inherit;
+}
+
+button {
+  color: inherit;
+  cursor: pointer;
+}
+
+#desktop {
+  min-height: 100vh;
+  padding-bottom: 95px;
+  background:
+    radial-gradient(ellipse at 15% 5%, #35265e, transparent 45%),
+    radial-gradient(ellipse at 90% 70%, #103c4b, transparent 40%),
+    #090b16;
+}
+
+header {
+  padding: 14px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 900;
+  letter-spacing: 3px;
+}
+
+.logo-icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #a18bff, #53e5ff);
+  color: #080a12;
+  font-size: 21px;
+}
+
+#clockSmall {
+  font-size: 12px;
+  color: var(--cyan);
+}
+
+main {
+  max-width: 1000px;
+  margin: auto;
+  padding: 32px 20px;
+}
+
+.eyebrow {
+  color: var(--cyan);
+  font-size: 11px;
+  letter-spacing: 3px;
+  font-weight: 800;
+}
+
+h1 {
+  font-size: clamp(40px, 8vw, 70px);
+  line-height: 1.05;
+  letter-spacing: -2px;
+  margin: 15px 0;
+}
+
+.gradient {
+  background: linear-gradient(90deg, #fff, #b6a6ff, #53e5ff);
+  background-clip: text;
+  color: transparent;
+}
+
+p {
+  line-height: 1.7;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 13px;
+}
+  .hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.hero-text {
+  max-width: 600px;
+}
+
+.orb {
+  width: 125px;
+  height: 125px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 25%, #d0c5ff, #7864ed 40%, #121a3a 75%);
+  box-shadow: 0 0 55px #8170ff55;
+}
+
+.primary {
+  background: linear-gradient(110deg, #927cff, #6253dc);
+  border: 0;
+  padding: 12px 16px;
+  border-radius: 11px;
+  font-weight: 750;
+}
+
+.secondary {
+  background: #ffffff09;
+  border: 1px solid var(--border);
+  padding: 11px 14px;
+  border-radius: 11px;
+}
+
+.section {
+  margin-top: 32px;
+}
+
+.section-title {
+  font-size: 14px;
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+}
+
+.apps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.app {
+  background: #ffffff09;
+  border: 1px solid var(--border);
+  border-radius: 17px;
+  text-align: left;
+  padding: 16px;
+  min-width: 0;
+}
+
+.app:hover {
+  border-color: var(--accent);
+  background: #ffffff12;
+}
+
+.app-icon {
+  width: 43px;
+  height: 43px;
+  border-radius: 13px;
+  background: #8b7cff28;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  margin-bottom: 13px;
+}
+
+.app strong {
+  display: block;
+  font-size: 14px;
+}
+
+.app .muted {
+  font-size: 11px;
+}
+
+.widgets {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.widget {
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 17px;
+  background: #14182add;
+  min-width: 0;
+}
+
+.bigclock {
+  font-size: 35px;
+  font-weight: 800;
+}
+
+textarea, input, select {
+  background: #080b16;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  width: 100%;
+  margin: 8px 0;
+}
+
+textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.dock {
+  position: fixed;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+  padding: 8px;
+  background: #101426ed;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  z-index: 5;
+  max-width: 96vw;
+}
+
+.dock button {
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  font-size: 21px;
+}
+
+.dock button:hover {
+  background: #ffffff18;
+  }
+  #windowLayer {
+  position: relative;
+  z-index: 10;
+}
+
+.window {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(520px, calc(100vw - 24px));
+  max-height: 80vh;
+  overflow: auto;
+  background: #14182a;
+  border: 1px solid #8b7cff70;
+  border-radius: 18px;
+  box-shadow: 0 20px 80px #000b;
+  z-index: 10;
+}
+
+.window-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.window-body {
+  padding: 18px;
+}
+
+.close {
+  background: #ffffff10;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 7px 10px;
+}
+
+@media (max-width: 600px) {
+  main {
+    padding: 25px 14px;
+  }
+
+  .orb {
+    width: 65px;
+    height: 65px;
+  }
+
+  .apps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .widgets {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    align-items: flex-start;
+  }
+
+  .dock button {
+    width: 38px;
+  }
+}
+</style>
+</head>
+
+<body>
+<div id="desktop">
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">K</div>
+    <div>KRYPTIQ</div>
+  </div>
+  <div id="clockSmall">SYSTEM ONLINE</div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-text">
+      <div class="eyebrow">YOUR WORLD. YOUR RULES.</div>
+      <h1>Welcome to<br><span class="gradient">KRYPTIQ.</span></h1>
+      <p class="muted">
+        Your own digital universe. A futuristic space
+        for your ideas, tools and creativity.
+      </p>
+      <button class="primary" onclick="openApp('explorer')">
+        Explore your system ↗
+      </button>
+      <button class="secondary" onclick="openApp('console')">
+        Open console
+      </button>
+    </div>
+    <div class="orb"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">YOUR APPLICATIONS</div>
+
+    <div class="apps">
+      <button class="app" onclick="openApp('notes')">
+        <div class="app-icon">✎</div>
+        <strong>Notes</strong>
+        <span class="muted">Capture your ideas</span>
+      </button>
+
+      <button class="app" onclick="openApp('calculator')">
+        <div class="app-icon">⊞</div>
+        <strong>Calculator</strong>
+        <span class="muted">Calculate anything</span>
+      </button>
+
+      <button class="app" onclick="openApp('explorer')">
+        <div class="app-icon">▤</div>
+        <strong>Files</strong>
+        <span class="muted">Explore your workspace</span>
+      </button>
+
+      <button class="app" onclick="openApp('settings')">
+        <div class="app-icon">⚙</div>
+        <strong>Settings</strong>
+        <span class="muted">Make it yours</span>
+      </button>
+
+      <button class="app" onclick="openApp('console')">
+        <div class="app-icon">⌘</div>
+        <strong>Command</strong>
+        <span class="muted">Talk to your system</span>
+      </button>
+
+      <button class="app" onclick="openApp('about')">
+        <div class="app-icon">◈</div>
+        <strong>About</strong>
+        <span class="muted">Discover KRYPTIQ</span>
+      </button>
+    </div>
+  </section>
+    <section class="section">
+    <div class="section-title">SYSTEM OVERVIEW</div>
+
+    <div class="widgets">
+      <div class="widget">
+        <h3>LOCAL TIME</h3>
+        <div class="bigclock" id="clock">00:00:00</div>
+        <div class="muted" id="date"></div>
+        <p class="muted">● Interface running normally</p>
+      </div>
+
+      <div class="widget">
+        <h3>QUICK NOTE</h3>
+        <textarea id="quickNote" placeholder="Write an idea here..."></textarea>
+        <div class="muted" id="saveStatus">
+          Notes save in this browser.
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer style="text-align:center;color:#969fbb;font-size:10px;padding:20px">
+  KRYPTIQ WEB EDITION · BUILD YOUR OWN DIGITAL WORLD
+</footer>
+</div>
+
+<nav class="dock">
+  <button onclick="goHome()" title="Home">⌂</button>
+  <button onclick="openApp('notes')" title="Notes">✎</button>
+  <button onclick="openApp('calculator')" title="Calculator">⊞</button>
+  <button onclick="openApp('explorer')" title="Files">▤</button>
+  <button onclick="openApp('console')" title="Console">⌘</button>
+  <button onclick="openApp('settings')" title="Settings">⚙</button>
+</nav>
+
+<div id="windowLayer"></div>
+
+<script>
+"use strict";
+
+const $ = id => document.getElementById(id);
+const layer = $("windowLayer");
+
+function getSaved(key, fallback = "") {
+  try {
+    return localStorage.getItem(key) ?? fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function saveData(key, value) {
+  try {
+    localStorage.setItem(key, value);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function updateClock() {
+  const now = new Date();
+
+  $("clock").textContent = now.toLocaleTimeString();
+
+  $("date").textContent = now.toLocaleDateString(undefined, {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  });
+
+  $("clockSmall").textContent =
+    now.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit"
+    }) + " · SYSTEM ONLINE";
+}
+
+updateClock();
+setInterval(updateClock, 1000);
+
+$("quickNote").value = getSaved("kryptiq-quick-note");
+
+$("quickNote").addEventListener("input", () => {
+  const ok = saveData(
+    "kryptiq-quick-note",
+    $("quickNote").value
+  );
+
+  $("saveStatus").textContent = ok
+    ? "Saved automatically."
+    : "Storage unavailable. Copy your note.";
+});
+  function goHome() {
+  layer.replaceChildren();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function closeApp() {
+  layer.replaceChildren();
+}
+
+function makeWindow(title, content) {
+  closeApp();
+
+  const win = document.createElement("section");
+  win.className = "window";
+  win.setAttribute("role", "dialog");
+
+  const head = document.createElement("div");
+  head.className = "window-head";
+
+  const heading = document.createElement("strong");
+  heading.textContent = title;
+
+  const close = document.createElement("button");
+  close.className = "close";
+  close.textContent = "✕";
+  close.onclick = closeApp;
+
+  head.append(heading, close);
+
+  const body = document.createElement("div");
+  body.className = "window-body";
+  body.innerHTML = content;
+
+  win.append(head, body);
+  layer.appendChild(win);
+}
+
+function openApp(app) {
+  if (app === "notes") {
+    makeWindow("✎ Notes", `
+      <p class="muted">Your notes save in this browser.</p>
+      <textarea id="notesText"
+        placeholder="Write something..."></textarea>
+      <button class="primary" onclick="saveNotes()">
+        Save notes
+      </button>
+      <button class="secondary" onclick="exportNotes()">
+        Export TXT
+      </button>
+      <p id="noteStatus" class="muted"></p>
+    `);
+
+    $("notesText").value = getSaved("kryptiq-notes");
+    return;
+  }
+
+  if (app === "calculator") {
+    makeWindow("⊞ Calculator", `
+      <input id="calc" value="0" readonly
+        style="font-size:27px;text-align:right;color:var(--cyan)">
+
+      <div class="calcgrid">
+        ${["AC","(",")","÷","7","8","9","×",
+        "4","5","6","−","1","2","3","+",
+        "±","0",".","="].map(key =>
+          `<button onclick="calcKey('${key}')">${key}</button>`
+        ).join("")}
+      </div>
+    `);
+    return;
+  }
+
+  if (app === "explorer") {
+    makeWindow("▤ File Explorer", `
+      <p class="muted">Your virtual workspace.</p>
+
+      <div class="file">
+        📄 <strong>quick-note.txt</strong>
+        <p class="muted">Your home screen note</p>
+        <button class="secondary"
+          onclick="exportText('quick-note.txt',
+          getSaved('kryptiq-quick-note'))">Export</button>
+      </div>
+
+      <div class="file">
+        📝 <strong>my-notes.txt</strong>
+        <p class="muted">Your Notes app document</p>
+        <button class="secondary" onclick="exportNotes()">
+          Export
+        </button>
+      </div>
+
+      <div class="file">
+        🌐 <strong>index.html</strong>
+        <p class="muted">Your website's main code file.</p>
+      </div>
+
+      <p class="muted">
+        This is a virtual workspace, not direct access
+        to files on your phone.
+      </p>
+    `);
+    return;
+  }
+
+  if (app === "settings") {
+    makeWindow("⚙ Settings", `
+      <label for="accent">Accent colour</label>
+      <select id="accent" onchange="setAccent(this.value)">
+        <option value="#8b7cff">Violet</option>
+        <option value="#53e5ff">Cyan</option>
+        <option value="#ff70b5">Pink</option>
+        <option value="#68dca0">Emerald</option>
+        <option value="#eab968">Gold</option>
+      </select>
+
+      <label for="displayName">Display name</label>
+      <input id="displayName" maxlength="32"
+        placeholder="Your name">
+
+      <button class="primary" onclick="saveSettings()">
+        Save settings
+      </button>
+      <p class="muted">Settings save in this browser.</p>
+    `);
+
+    $("accent").value = getSaved("kryptiq-accent", "#8b7cff");
+    $("displayName").value = getSaved("kryptiq-name");
+    return;
+  }
+    if (app === "console") {
+    makeWindow("⌘ Command Console", `
+      <p class="muted">
+        Type a command and press Run.
+      </p>
+
+      <form id="commandForm">
+        <input id="commandInput" placeholder="Try: help">
+        <button class="primary" type="submit">Run command</button>
+      </form>
+
+      <pre id="consoleOutput" style="white-space:pre-wrap;overflow-wrap:anywhere;background:#080b16;padding:14px;border-radius:10px">KRYPTIQ Console v1.0
+Ready. Type help to begin.</pre>
+    `);
+
+    $("commandForm").addEventListener("submit", runCommand);
+    return;
+  }
+
+  if (app === "about") {
+    makeWindow("◈ About KRYPTIQ", `
+      <div class="eyebrow">THE BEGINNING</div>
+      <h2 class="gradient">Your digital universe.</h2>
+
+      <p>
+        KRYPTIQ is an experimental browser-based
+        desktop concept for your tools and ideas.
+      </p>
+
+      <div class="file">VERSION: 1.0 WEB EDITION</div>
+      <div class="file">PLATFORM: WEB BROWSER</div>
+      <div class="file">COST: FREE TO START</div>
+
+      <p class="muted">
+        KRYPTIQ is a website, not a replacement
+        for your phone's operating system.
+      </p>
+    `);
+  }
+}
+
+function saveNotes() {
+  const ok = saveData("kryptiq-notes", $("notesText").value);
+
+  $("noteStatus").textContent = ok
+    ? "Notes saved successfully!"
+    : "Could not save. Please copy your notes.";
+}
+
+function exportNotes() {
+  exportText("my-notes.txt", getSaved("kryptiq-notes"));
+}
+
+function exportText(filename, content) {
+  const blob = new Blob([content], {
+    type: "text/plain;charset=utf-8"
+  });
+
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function setAccent(color) {
+  if (!/^#[0-9a-f]{6}$/i.test(color)) return;
+
+  document.documentElement.style.setProperty(
+    "--accent",
+    color
+  );
+
+  saveData("kryptiq-accent", color);
+}
+
+function saveSettings() {
+  const name = $("displayName").value.trim();
+
+  saveData("kryptiq-name", name);
+
+  const heading = document.querySelector(".hero h1");
+
+  heading.innerHTML =
+    "Welcome" +
+    (name ? ", " + escapeHTML(name) : "") +
+    " to<br><span class='gradient'>KRYPTIQ.</span>";
+
+  closeApp();
+}
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
+  }
+  let calcExpression = "";
+
+function calcKey(key) {
+  const display = $("calc");
+  if (!display) return;
+
+  if (key === "AC") {
+    calcExpression = "";
+    display.value = "0";
+    return;
+  }
+
+  if (key === "=") {
+    try {
+      const result = calculate(calcExpression);
+
+      if (!Number.isFinite(result)) {
+        throw new Error("Invalid result");
+      }
+
+      calcExpression = String(Number(result.toPrecision(12)));
+      display.value = calcExpression;
+    } catch {
+      display.value = "Error";
+      calcExpression = "";
+    }
+    return;
+  }
+
+  if (key === "±") {
+    if (calcExpression) {
+      try {
+        calcExpression = String(-calculate(calcExpression));
+        display.value = calcExpression;
+      } catch {}
+    }
+    return;
+  }
+
+  const symbols = {
+    "×": "*",
+    "÷": "/",
+    "−": "-"
+  };
+
+  calcExpression += symbols[key] || key;
+  display.value = calcExpression;
+}
+
+function calculate(expression) {
+  if (
+    !expression ||
+    expression.length > 100 ||
+    !/^[0-9+\-*/().\s]+$/.test(expression)
+  ) {
+    throw new Error("Invalid expression");
+  }
+
+  const tokens = expression.match(/\d*\.?\d+|[()+\-*/]/g);
+
+  if (!tokens || tokens.join("") !== expression.replace(/\s/g, "")) {
+    throw new Error("Invalid expression");
+  }
+
+  let position = 0;
+
+  function primary() {
+    const token = tokens[position++];
+
+    if (token === "+") return primary();
+    if (token === "-") return -primary();
+
+    if (token === "(") {
+      const value = sum();
+
+      if (tokens[position++] !== ")") {
+        throw new Error("Missing bracket");
+      }
+
+      return value;
+    }
+
+    if (token === undefined || !/^\d*\.?\d+$/.test(token)) {
+      throw new Error("Invalid number");
+    }
+
+    return Number(token);
+  }
+
+  function product() {
+    let value = primary();
+
+    while (tokens[position] === "*" || tokens[position] === "/") {
+      const operator = tokens[position++];
+      const next = primary();
+
+      if (operator === "/" && next === 0) {
+        throw new Error("Cannot divide by zero");
+      }
+
+      value = operator === "*" ? value * next : value / next;
+    }
+
+    return value;
+  }
+
+  function sum() {
+    let value = product();
+
+    while (tokens[position] === "+" || tokens[position] === "-") {
+      const operator = tokens[position++];
+      const next = product();
+
+      value = operator === "+" ? value + next : value - next;
+    }
+
+    return value;
+  }
+
+  const result = sum();
+
+  if (position !== tokens.length || !Number.isFinite(result)) {
+    throw new Error("Invalid calculation");
+  }
+
+  return result;
+}
+
+function runCommand(event) {
+  event.preventDefault();
+
+  const input = $("commandInput");
+  const output = $("consoleOutput");
+  const command = input.value.trim().toLowerCase();
+
+  let response;
+
+  switch (command) {
+    case "help":
+      response =
+        "AVAILABLE COMMANDS\n" +
+        "help - List commands\n" +
+        "time - Show local time\n" +
+        "date - Show today's date\n" +
+        "about - System information\n" +
+        "clear - Clear the console";
+      break;
+
+    case "time":
+      response = "LOCAL TIME: " + new Date().toLocaleTimeString();
+      break;
+
+    case "date":
+      response = "TODAY: " + new Date().toLocaleDateString();
+      break;
+
+    case "about":
+      response = "KRYPTIQ WEB EDITION\nVersion 1.0\nBrowser-based digital desktop.";
+      break;
+
+    case "clear":
+      output.textContent = "";
+      input.value = "";
+      return;
+
+    case "":
+      response = "Enter a command first.";
+      break;
+
+    default:
+      response = "Unknown command: " + command + "\nType help for commands.";
+  }
+
+  output.textContent += "\n\n> " + command + "\n" + response;
+  input.value = "";
+}
+
+const savedAccent = getSaved("kryptiq-accent", "#8b7cff");
+document.documentElement.style.setProperty("--accent", savedAccent);
+
+const savedName = getSaved("kryptiq-name");
+
+if (savedName) {
+  document.querySelector(".hero h1").innerHTML =
+    "Welcome, " + escapeHTML(savedName) +
+    " to<br><span class='gradient'>KRYPTIQ.</span>";
+}
+</script>
+</body>
+</html>
